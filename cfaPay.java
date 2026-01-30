@@ -20,6 +20,7 @@ public class cfaPay {
         
         String employeeFirstName;
         String employeeLastName;
+        String employeeFullName;
         int employeePay;
 
         final int MAX_EMPLOYEE_NAME_CHARS = 15;
@@ -29,20 +30,70 @@ public class cfaPay {
 
         Scanner scnr = new Scanner(System.in);
 
-        System.out.print("Enter employee's first name (< 15 chars): ");
+        System.out.print("Employee's first name: ");
         employeeFirstName = scnr.nextLine();
-        //employeeFirstName = employeeFirstName.substring(0,14);
-        //FIXME: Need to make upper bound be string length if string length is < 16 without using an if statement.
 
-        System.out.print("Enter employee's last name (< 15 chars): ");
+        System.out.print("Employee's last name: ");
         employeeLastName = scnr.nextLine();
-        //employeeLastName = employeeLastName.substring(0,14);
 
-        System.out.println("\n\nFirst Name: " + employeeFirstName);
-        System.out.println("Last Name: " + employeeLastName);
+        employeeFullName = String.join(", ", employeeLastName, employeeFirstName); //I found the join method at https://www.w3schools.com/java/ref_string_join.asp
+
+        System.out.print(employeeFirstName + "\'s pay in CFA: ");
+        employeePay = scnr.nextInt();
+
+        //First line of formatted output: labels
+        System.out.printf("%-15s", "Name");
+        System.out.print(" ");
+        System.out.printf("%-5s", "Pay");
+        System.out.print(" ");
+        System.out.printf("%3s", "10k");
+        System.out.print(" ");
+        System.out.printf("%3s", "5k");
+        System.out.print(" ");
+        System.out.printf("%3s", "1k");
+        System.out.print(" ");
+        System.out.printf("%3s", "500");
+        System.out.print(" ");
+        System.out.printf("%3s", "100");
+        System.out.print(" ");
+        System.out.printf("%3s", "50");
+        System.out.print(" ");
+        System.out.printf("%3s", "25");
+        System.out.print(" ");
+        System.out.printf("%3s", "10");
+        System.out.print(" ");
+        System.out.printf("%3s", "5");
+        System.out.print("\n");
 
 
+        //Second line of output: Separators
+        System.out.printf("%-15s", "===============");
+        System.out.print(" ");
+        System.out.printf("%-5s", "=====");
+        System.out.print(" ");
+        System.out.printf("%3s", "===");
+        System.out.print(" ");
+        System.out.printf("%3s", "===");
+        System.out.print(" ");
+        System.out.printf("%3s", "===");
+        System.out.print(" ");
+        System.out.printf("%3s", "===");
+        System.out.print(" ");
+        System.out.printf("%3s", "===");
+        System.out.print(" ");
+        System.out.printf("%3s", "===");
+        System.out.print(" ");
+        System.out.printf("%3s", "===");
+        System.out.print(" ");
+        System.out.printf("%3s", "===");
+        System.out.print(" ");
+        System.out.printf("%3s", "===");
+        System.out.print("\n");
+        
 
+        //Third Line of Output: Data
+        System.out.printf("%.15s", employeeFullName);
+        System.out.print(" ");
 
     }
 }
