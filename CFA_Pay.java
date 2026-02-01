@@ -13,33 +13,37 @@ pay into certain money denominations, and outputs results into a formatted repor
 //Github repo for this project is at: https://github.com/jayosinclair/CIS2212_A2_cfaPay.git
 //**********************************************************************************************************************
 
-import java.util.Scanner;
-
-public class cfaPay {
-    public static void main(String[] args) {
+public class CFA_Pay {
         
-        String employeeFirstName;
-        String employeeLastName;
-        String employeeFullName;
-        int employeePay;
+    public static void main(String[] args) {
 
-        final int MAX_EMPLOYEE_NAME_CHARS = 15;
-        final int MAX_EMPLOYEE_AMT = 100000;
-        final int HIGHEST_DENOMINATION = 10000;
-        final int SMALLEST_DENOMINATION = 5;
+        int tempAmount = -1;
+        
+        Employee person = new Employee();
+        
+        
+        //***************************************************INPUT SECTION*******************************************************
+        
+        System.out.println("\n\n"); //Make a margin for readability
 
-        Scanner scnr = new Scanner(System.in);
+        person.setEmployeeFirstName(); //Populate the person object of type Employee with employee name and pay info.
+        person.setEmployeeLastName();
+        person.setEmployeeFullName();
+        person.setEmployeePayAmount();
 
-        System.out.print("Employee's first name: ");
-        employeeFirstName = scnr.nextLine();
 
-        System.out.print("Employee's last name: ");
-        employeeLastName = scnr.nextLine();
+        //***************************************************CALC SECTION********************************************************
 
-        employeeFullName = String.join(", ", employeeLastName, employeeFirstName); //I found the join method at https://www.w3schools.com/java/ref_string_join.asp
+        tempAmount = person.getEmployeePayAmount();
+        BillCounter bills = new BillCounter(tempAmount);
+        bills.setNum10KBills();
+        System.out.print(bills.getNum10KBills());
 
-        System.out.print(employeeFirstName + "\'s pay in CFA: ");
-        employeePay = scnr.nextInt();
+
+        //***************************************************OUTPUT SECTION******************************************************
+
+        //Make a margin for readability
+        System.out.println("\n\n");
 
         //First line of formatted output: labels
         System.out.printf("%-15s", "Name");
@@ -92,8 +96,35 @@ public class cfaPay {
         
 
         //Third Line of Output: Data
-        System.out.printf("%.15s", employeeFullName);
+        System.out.printf("%.15s", person.getEmployeeFullName());
+        System.out.print(" "); //FIXME: Need to figure out how to make spaces for all the positions that aren't present if < 15 chars
+        System.out.printf("%5d", person.getEmployeePayAmount());
+       
+       /* 
         System.out.print(" ");
+        System.out.printf("%3d", num10K);
+        System.out.print(" ");
+        System.out.printf("%3d", num5K);
+        System.out.print(" ");
+        System.out.printf("%3d", num1K);
+        System.out.print(" ");
+        System.out.printf("%3d", num500);
+        System.out.print(" ");
+        System.out.printf("%3d", num100);
+        System.out.print(" ");
+        System.out.printf("%3d", num50);
+        System.out.print(" ");
+        System.out.printf("%3d", num25);
+        System.out.print(" ");
+        System.out.printf("%3d", num10);
+        System.out.print(" ");
+        System.out.printf("%3d", num5);
+        System.out.print("\n");
+
+        */
+
+        //Make a margin for readability
+        System.out.println("\n\n");
 
     }
 }
