@@ -8,36 +8,106 @@
 methods, and formatted output.
 
 This program collects information using a Scanner object, breaks down employee 
-pay into certain money denominations, and outputs results into a formatted report.*/
+pay into certain money denominations, and outputs results into a formatted report.
+
+Note: this assignment specified to not do anything too fancy, so I didn't use classes, loops, arrays, etc.
+
+*/
 
 //Github repo for this project is at: https://github.com/jayosinclair/CIS2212_A2_cfaPay.git
 //**********************************************************************************************************************
 
+import java.util.Scanner;
+
 public class CFA_Pay {
-        
+
     public static void main(String[] args) {
 
-        int tempAmount = -1;
-        
-        Employee person = new Employee();
-        
+        //Constants for denominations just to not have magic numbers below:
+        final int TEN_THOUSAND_CFA = 10000; //Largest CFA denomination
+        final int FIVE_THOUSAND_CFA = 5000;
+        final int ONE_THOUSAND_CFA = 1000;
+        final int FIVE_HUNDRED_CFA = 500;
+        final int ONE_HUNDRED_CFA = 100;
+        final int FIFTY_CFA = 50;
+        final int TWENTY_FIVE_CFA = 25;
+        final int TEN_CFA = 10;
+        final int FIVE_CFA = 5; //Smallest CFA denomination
+
+        //Variables to represent counts of each denomination (each initialized to -1 just for debugging if needed):
+        int countTenThousandCFA = -1;
+        int countFiveThousandCFA = -1;
+        int countOneThousandCFA= -1;
+        int countFiveHundredCFA = -1;
+        int countOneHundredCFA = -1;
+        int countFiftyCFA = -1;
+        int countTwentyFiveCFA = -1;
+        int countTenCFA = -1;
+        int countFiveCFA = -1;
+
+        //Other variables to meet program requirements:
+        int empPayAmount = -1;
+        int tempPayAmount = -1;
+        String empFirstName;
+        String empLastName;
+        String empFullName; //Not truncated
+        String truncatedEmpFullName;
+   
+
+        Scanner scan = new Scanner(System.in); //Memory leak for this object isn't closed since we haven't discussed deallocation yet.
         
         //***************************************************INPUT SECTION*******************************************************
         
         System.out.println("\n\n"); //Make a margin for readability
 
-        person.setEmployeeFirstName(); //Populate the person object of type Employee with employee name and pay info.
-        person.setEmployeeLastName();
-        person.setEmployeeFullName();
-        person.setEmployeePayAmount();
+        System.out.print("Employee's first name: ");
+        empFirstName = scan.next();
 
+        System.out.print("Employee's last name: ");
+        empLastName = scan.next();
+
+        System.out.print("Pay in CFA: ");
+        empPayAmount = scan.nextInt(); //In future extension, I could add while loop validation here to ensure user enters a value > 0 and < 100000.
+                                       //Also could check divisibility rules to ensure last digit is either 0 or 5. Keeping it simple for now.
 
         //***************************************************CALC SECTION********************************************************
 
-        tempAmount = person.getEmployeePayAmount();
-        BillCounter bills = new BillCounter(tempAmount);
-        bills.setNum10KBills();
-        System.out.print(bills.getNum10KBills());
+        empFullName = String.join(", ", empLastName, empFirstName); //I found the join method at https://www.w3schools.com/java/ref_string_join.asp
+        //Note: The full name is not truncated if < 15 chars at this point. We save that for formatting in the output section.
+
+
+        //Note: Code below isn't a terribly efficient way to do this, but I'm trying to keep this simple on purpose... 
+        //The calculations below exhaustively go through each of the denominations without calling a method elsewhere 
+        //in the program. If this program ever gets refactored, I think it would make sense to make a method that has 
+        //a pay amount and denomination recursively called and assigned to an object's instance variables until the last
+        //denomination has a bill count satisfied.
+
+        countTenThousandCFA = empPayAmount / TEN_THOUSAND_CFA; //I can't think of a time when 10,000 CFA would ever be something other than 10,000 CFA, so perhaps the constants is obtuse. Interested in feedback on that as a style choice.
+        tempPayAmount = empPayAmount % TEN_THOUSAND_CFA;
+
+        countFiveThousandCFA = tempPayAmount / FIVE_THOUSAND_CFA;
+        tempPayAmount = tempPayAmount % FIVE_THOUSAND_CFA;
+
+        countOneThousandCFA = tempPayAmount / ONE_THOUSAND_CFA;
+        tempPayAmount = tempPayAmount % ONE_THOUSAND_CFA;
+
+        countFiveHundredCFA = tempPayAmount / FIVE_HUNDRED_CFA;
+        tempPayAmount = tempPayAmount % FIVE_HUNDRED_CFA;
+
+        countOneHundredCFA = tempPayAmount / ONE_HUNDRED_CFA;
+        tempPayAmount = tempPayAmount % ONE_HUNDRED_CFA;
+
+        countFiftyCFA = tempPayAmount / FIFTY_CFA;
+        tempPayAmount = tempPayAmount % FIFTY_CFA;
+
+        countTwentyFiveCFA = tempPayAmount / TWENTY_FIVE_CFA;
+        tempPayAmount = tempPayAmount % TWENTY_FIVE_CFA;
+
+        countTenCFA = tempPayAmount / TEN_CFA;
+        tempPayAmount = tempPayAmount % TEN_CFA;
+
+        countFiveCFA = tempPayAmount / FIVE_CFA;
+        tempPayAmount = tempPayAmount % FIVE_CFA;
 
 
         //***************************************************OUTPUT SECTION******************************************************
@@ -45,10 +115,11 @@ public class CFA_Pay {
         //Make a margin for readability
         System.out.println("\n\n");
 
+
         //First line of formatted output: labels
-        System.out.printf("%-15s", "Name");
+        System.out.printf("%-15s", "Name"); //Left-align with max of 15 chars. 
         System.out.print(" ");
-        System.out.printf("%-5s", "Pay");
+        System.out.printf("%-5s", "Pay"); //Left-align with max of 5 chars. Etc...
         System.out.print(" ");
         System.out.printf("%3s", "10k");
         System.out.print(" ");
@@ -71,7 +142,7 @@ public class CFA_Pay {
 
 
         //Second line of output: Separators
-        System.out.printf("%-15s", "===============");
+        System.out.printf("%-15s", "==============="); //Second line has same spacing as first line and third line
         System.out.print(" ");
         System.out.printf("%-5s", "=====");
         System.out.print(" ");
@@ -96,32 +167,38 @@ public class CFA_Pay {
         
 
         //Third Line of Output: Data
-        System.out.printf("%.15s", person.getEmployeeFullName());
-        System.out.print(" "); //FIXME: Need to figure out how to make spaces for all the positions that aren't present if < 15 chars
-        System.out.printf("%5d", person.getEmployeePayAmount());
-       
-       /* 
+        
+        
+        //System.out.printf("%-15s", empFullName); <--This was my original instinct for name output, but it did not work as required. 
+        //The value would not be truncated if > 15 chars.
+    
+
+        //Here's what I got using Gemini:
+        truncatedEmpFullName = empFullName.substring(0, Math.min(empFullName.length(), 15));
+        
+        System.out.printf("%-15s", truncatedEmpFullName); 
         System.out.print(" ");
-        System.out.printf("%3d", num10K);
+        System.out.printf("%5d", empPayAmount);
         System.out.print(" ");
-        System.out.printf("%3d", num5K);
+        System.out.printf("%3d", countTenThousandCFA);
         System.out.print(" ");
-        System.out.printf("%3d", num1K);
+        System.out.printf("%3d", countFiveThousandCFA);
         System.out.print(" ");
-        System.out.printf("%3d", num500);
+        System.out.printf("%3d", countOneThousandCFA);
         System.out.print(" ");
-        System.out.printf("%3d", num100);
+        System.out.printf("%3d", countFiveHundredCFA);
         System.out.print(" ");
-        System.out.printf("%3d", num50);
+        System.out.printf("%3d", countOneHundredCFA);
         System.out.print(" ");
-        System.out.printf("%3d", num25);
+        System.out.printf("%3d", countFiftyCFA);
         System.out.print(" ");
-        System.out.printf("%3d", num10);
+        System.out.printf("%3d", countTwentyFiveCFA);
         System.out.print(" ");
-        System.out.printf("%3d", num5);
+        System.out.printf("%3d", countTenCFA);
+        System.out.print(" ");
+        System.out.printf("%3d", countFiveCFA);
         System.out.print("\n");
 
-        */
 
         //Make a margin for readability
         System.out.println("\n\n");
