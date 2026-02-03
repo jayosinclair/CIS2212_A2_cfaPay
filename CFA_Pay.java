@@ -4,14 +4,14 @@
 //Due Date: February 11, 2026
 //Submitted: 
 
-/*The purpose of this program is to practice input, variable declarations, assignment statements, calculations, String and Math class
+/*
+The purpose of this program is to practice input, variable declarations, assignment statements, calculations, String and Math class
 methods, and formatted output.
 
 This program collects information using a Scanner object, breaks down employee 
 pay into certain money denominations, and outputs results into a formatted report.
 
-Note: this assignment specified to not do anything too fancy, so I didn't use classes, loops, arrays, etc.
-
+Note: this assignment specified to not do anything too fancy, so I didn't use if statements, classes, loops, arrays, etc.
 */
 
 //Github repo for this project is at: https://github.com/jayosinclair/CIS2212_A2_cfaPay.git
@@ -74,6 +74,8 @@ public class CFA_Pay {
 
         empFullName = String.join(", ", empLastName, empFirstName); //I found the join method at https://www.w3schools.com/java/ref_string_join.asp
         //Note: The full name is not truncated if < 15 chars at this point. We save that for formatting in the output section.
+
+
 
 
         //Note: Code below isn't a terribly efficient way to do this, but I'm trying to keep this simple on purpose... 
@@ -173,30 +175,30 @@ public class CFA_Pay {
         //The value would not be truncated if > 15 chars.
     
 
-        //Here's what I got using Gemini:
+        //Here's what I got using Gemini (see accompanying paper in assignment submission):
         truncatedEmpFullName = empFullName.substring(0, Math.min(empFullName.length(), 15));
         
         System.out.printf("%-15s", truncatedEmpFullName); 
         System.out.print(" ");
         System.out.printf("%5d", empPayAmount);
-        System.out.print(" ");
-        System.out.printf("%3d", countTenThousandCFA);
-        System.out.print(" ");
-        System.out.printf("%3d", countFiveThousandCFA);
-        System.out.print(" ");
-        System.out.printf("%3d", countOneThousandCFA);
-        System.out.print(" ");
-        System.out.printf("%3d", countFiveHundredCFA);
-        System.out.print(" ");
-        System.out.printf("%3d", countOneHundredCFA);
-        System.out.print(" ");
-        System.out.printf("%3d", countFiftyCFA);
-        System.out.print(" ");
-        System.out.printf("%3d", countTwentyFiveCFA);
-        System.out.print(" ");
-        System.out.printf("%3d", countTenCFA);
-        System.out.print(" ");
-        System.out.printf("%3d", countFiveCFA);
+        System.out.print("  ");
+        System.out.printf("%-2d", countTenThousandCFA); //Center output for bill/coin counts
+        System.out.print("  ");
+        System.out.printf("%-2d", countFiveThousandCFA);
+        System.out.print("  ");
+        System.out.printf("%-2d", countOneThousandCFA);
+        System.out.print("  ");
+        System.out.printf("%-2d", countFiveHundredCFA);
+        System.out.print("  ");
+        System.out.printf("%-2d", countOneHundredCFA);
+        System.out.print("  ");
+        System.out.printf("%-2d", countFiftyCFA);
+        System.out.print("  ");
+        System.out.printf("%-2d", countTwentyFiveCFA);
+        System.out.print("  ");
+        System.out.printf("%-2d", countTenCFA);
+        System.out.print("  ");
+        System.out.printf("%-2d", countFiveCFA);
         System.out.print("\n");
 
 
