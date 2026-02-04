@@ -2,16 +2,18 @@
 //Section: CIS 2212-801
 //Assignment: Project 2 CFA Pay
 //Due Date: February 11, 2026
-//Submitted: 
+//Submitted: February 3, 2026
 
 /*
-The purpose of this program is to practice input, variable declarations, assignment statements, calculations, String and Math class
+Program Purpose: Practice input, variable declarations, assignment statements, calculations, String and Math class
 methods, and formatted output.
 
-This program collects information using a Scanner object, breaks down employee 
-pay into certain money denominations, and outputs results into a formatted report.
+Program Function: Collect information using a Scanner object, break down employee  pay into certain money denominations,
+and output results into a formatted report. This is a prototype for what could be refactored and extended into a larger
+program supporting many employees.
 
-Note: this assignment specified to not do anything too fancy, so I didn't use if statements, classes, loops, arrays, etc.
+Note: This assignment specified to not do anything too fancy, so I purposefully didn't use if statements, classes, loops, 
+arrays, or anything else other than what was specified in the assignment specification document.
 */
 
 //Github repo for this project is at: https://github.com/jayosinclair/CIS2212_A2_cfaPay.git
@@ -68,14 +70,12 @@ public class CFA_Pay {
 
         System.out.print("Pay in CFA: ");
         empPayAmount = scan.nextInt(); //In future extension, I could add while loop validation here to ensure user enters a value > 0 and < 100000.
-                                       //Also could check divisibility rules to ensure last digit is either 0 or 5. Keeping it simple for now.
+                                       //I also could check divisibility rules to ensure last digit is either 0 or 5. Keeping it simple for now.
 
         //***************************************************CALC SECTION********************************************************
 
         empFullName = String.join(", ", empLastName, empFirstName); //I found the join method at https://www.w3schools.com/java/ref_string_join.asp
         //Note: The full name is not truncated if < 15 chars at this point. We save that for formatting in the output section.
-
-
 
 
         //Note: Code below isn't a terribly efficient way to do this, but I'm trying to keep this simple on purpose... 
@@ -84,7 +84,7 @@ public class CFA_Pay {
         //a pay amount and denomination recursively called and assigned to an object's instance variables until the last
         //denomination has a bill count satisfied.
 
-        countTenThousandCFA = empPayAmount / TEN_THOUSAND_CFA; //I can't think of a time when 10,000 CFA would ever be something other than 10,000 CFA, so perhaps the constants is obtuse. Interested in feedback on that as a style choice.
+        countTenThousandCFA = empPayAmount / TEN_THOUSAND_CFA; //I can't think of a time when 10,000 CFA would ever be something other than 10,000 CFA, so perhaps the constants is obtuse. I'm interested in feedback on that as a style choice.
         tempPayAmount = empPayAmount % TEN_THOUSAND_CFA;
 
         countFiveThousandCFA = tempPayAmount / FIVE_THOUSAND_CFA;
@@ -121,9 +121,9 @@ public class CFA_Pay {
         //First line of formatted output: labels
         System.out.printf("%-15s", "Name"); //Left-align with max of 15 chars. 
         System.out.print(" ");
-        System.out.printf("%-5s", "Pay"); //Left-align with max of 5 chars. Etc...
+        System.out.printf("%-5s", "Pay"); //Left-align with max of 5 chars.
         System.out.print(" ");
-        System.out.printf("%3s", "10k");
+        System.out.printf("%3s", "10k"); //Pivot to right-aligning output.
         System.out.print(" ");
         System.out.printf("%3s", "5k");
         System.out.print(" ");
@@ -144,7 +144,7 @@ public class CFA_Pay {
 
 
         //Second line of output: Separators
-        System.out.printf("%-15s", "==============="); //Second line has same spacing as first line and third line
+        System.out.printf("%-15s", "==============="); //Second line has same spacing as first line and third line.
         System.out.print(" ");
         System.out.printf("%-5s", "=====");
         System.out.print(" ");
@@ -172,7 +172,7 @@ public class CFA_Pay {
         
         
         //System.out.printf("%-15s", empFullName); <--This was my original instinct for name output, but it did not work as required. 
-        //The value would not be truncated if > 15 chars.
+        //Problem: the value would not be truncated if > 15 chars.
     
 
         //Here's what I got using Gemini (see accompanying paper in assignment submission):
@@ -182,7 +182,7 @@ public class CFA_Pay {
         System.out.print(" ");
         System.out.printf("%5d", empPayAmount);
         System.out.print("  ");
-        System.out.printf("%-2d", countTenThousandCFA); //Center output for bill/coin counts
+        System.out.printf("%-2d", countTenThousandCFA); //Center output for bill/coin counts.
         System.out.print("  ");
         System.out.printf("%-2d", countFiveThousandCFA);
         System.out.print("  ");
